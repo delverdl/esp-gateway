@@ -1,0 +1,4 @@
+# Ignore Base-93 c++ header
+# User should include it manually before compiling
+Base93.hpp
+
