@@ -61,3 +61,8 @@ without reseting, and then write modified block to your device flash memory.
 ```esptool.py -p COM7 -b 460800 --after no_reset erase_region 0x41000 0x1000```
 
 ```esptool.py -p COM7 -b 460800 write_flash 0x41000 ctx_data.bin```
+
+## Compilation
+
+In order to properly compile this Arduino project for ESP8266 you need to copy
+Base93.hpp from <a href="https://github.com/delverdl/base93">this</a> project
