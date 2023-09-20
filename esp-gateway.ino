@@ -10,19 +10,19 @@ const int DIGITAL1 = 5;
 //Device configuration in flash
 typedef struct _wifi_cfg
 {
-    char initTag[8];    //0
-    char ssid[64];      //8
-    char password[64];  //72
-    char hasDhcp;       //136
-    char ip[16];        //137
-    char gateway[16];   //153
-    char subNet[16];    //169
-    char hostName[16];  //185
-    char baudRate[8];   //201
-    char port[6];       //209
-    char padding[33];   //215
-    char endTag[8];     //248
-} SWiFiCfg;
+    char initTag[8];    //0   (Dummy tag for memory area start)
+    char ssid[64];      //8   (Client WiFi SSID)
+    char password[64];  //72  (Client WiFi password)
+    char hasDhcp;       //136 (Use DHCP)
+    char ip[16];        //137 (Device IP address, works if hasDhcp is 0)
+    char gateway[16];   //153 (Device gateway, works if hasDhcp is 0)
+    char subNet[16];    //169 (Subnet mask, works if hasDhcp is 0)
+    char hostName[16];  //185 (Network host name)
+    char baudRate[8];   //201 (Serial port baud rate with 8 bits, no parity, 1 stop bit)
+    char port[6];       //209 (TCP port created)
+    char padding[33];   //215 (Unused area to guarantee 256 bytes config block)
+    char endTag[8];     //248 (Dummy tag for memory area end)
+} SWiFiCfg;;
 
 constexpr SWiFiCfg _devInfo
 {
