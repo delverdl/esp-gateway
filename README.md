@@ -55,8 +55,8 @@ constexpr SWiFiCfg _devInfo
 };
 ```
 
-In other to properly configure your device, you need to first erase config block,
-without reseting, and then write modified block to your device flash memory.
+In other to properly configure your device, you need to erase the config sector first,
+without reseting, and then write the modified block to your device's flash memory.
 
 ```esptool.py -p COM7 -b 460800 --after no_reset erase_region 0x41000 0x1000```
 
