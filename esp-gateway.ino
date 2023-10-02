@@ -65,16 +65,15 @@ void setup()
     WiFi.config(iaDev, iaGw, iaSn);
   }
 
-  const char* cszPassword = Base93::toBuffer(_devInfo.password).c_str();
+  str_t sPass = Base93::toString(_devInfo.password);
+  const char* cszPassword = sPass.c_str();
 
-  Serial.print("+PASSWORD: ");
-  Serial.println(cszPassword);
   WiFi.begin(_devInfo.ssid, cszPassword); //Connect to wifi
 
   digitalWrite(DIGITAL1, HIGH); //Indicate device's start point
  
   //Wait for connection  
-  Serial.println("+CONNECTING");
+  Serial.print("+CONNECTING");
   while (WiFi.status() != WL_CONNECTED)
   {   
     delay(500);
@@ -102,23 +101,20 @@ void setup()
  */
 void loop()
 {
-  unsigned long ulCurrent;
-  unsigned long ulNow;
   WiFiClient client = server->available();
   boolean uiLed = HIGH;
+  long ml;
 
   if (client) //If a client's got connected
   {    
-    ulCurrent = millis();
     Serial.print("+CLIENT: ");
     Serial.println(client.remoteIP());
     while(client.connected())
     { 
-      ulNow = millis();
-      if (ulNow + 1000 >= ulCurrent)
+      ml = millis() % 1000;
+      if (ml < 70) //Every 1000 - 1070 ms
       { //Blink led every 1s while connected
-        ulCurrent = ulNow;
-        uiLed = ~uiLed;
+        uiLed = uiLed == HIGH ? LOW : HIGH;
         digitalWrite(DIGITAL1, uiLed);
       }
       //While client is connected...
